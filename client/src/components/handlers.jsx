@@ -1,7 +1,7 @@
-import { google } from 'googleapis';
-import { config } from 'dotenv';
-import path from 'path';
-import fs from 'fs/promises';
+import { google } from "googleapis";
+import { config } from "dotenv";
+import path from "path";
+import fs from "fs/promises";
 
 config();
 
@@ -20,14 +20,14 @@ const oauth2Client = new google.auth.OAuth2(
 );
 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-export const drive = google.drive({
+const drive = google.drive({
   version: "v3",
   auth: oauth2Client,
 });
 
 const filePath = path.join(__dirname, "dog.jpg");
 
-export async function uploadFile() {
+async function uploadFile() {
   try {
     const response = await drive.files.create({
       requestBody: {
@@ -43,9 +43,9 @@ export async function uploadFile() {
   } catch (error) {
     console.log(error);
   }
-};
+}
 // uploadFile();
-export async function deleteFile() {
+async function deleteFile() {
   try {
     const response = await drive.files.delete({
       fileId: "1daOxTt4qCNtIAWni_3zkheZIn9QhXyeB",
@@ -57,7 +57,7 @@ export async function deleteFile() {
 }
 // deleteFile();
 
-export async function generatePublicUrl() {
+async function generatePublicUrl() {
   try {
     const fileId = "1HIz6RMyQ8AiX7G4RhBsQRzo4lD6cQ4oE";
     await drive.permissions.create({
@@ -77,7 +77,7 @@ export async function generatePublicUrl() {
   }
 }
 // generatePublicUrl();
-export default createDirectory = async (name)  => {
+async function createDirectory(name) {
   try {
     const response = await drive.files.create({
       requestBody: {
@@ -90,10 +90,10 @@ export default createDirectory = async (name)  => {
   } catch (error) {
     console.error("Error creating directory:", error.message);
   }
-};
+}
 // createDirectory();
 
-export async function createDirectoryStructure() {
+async function createDirectoryStructure() {
   try {
     // Create the main directory "shoot1"
     const mainDirectoryResponse = await drive.files.create({
@@ -164,3 +164,10 @@ export async function createDirectoryStructure() {
     console.error("Error creating directory structure:", error);
   }
 }
+export {
+  createDirectory,
+  uploadFile,
+  deleteFile,
+  generatePublicUrl,
+  createDirectoryStructure,
+};

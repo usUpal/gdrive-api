@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import {drive} from './handlers'
+// import { createDirectory } from "./handlers";
 // import { drive } from "handlers";
 
 const FileUploadForm = () => {
@@ -7,7 +7,6 @@ const FileUploadForm = () => {
   const [fileType, setFileType] = useState("image");
   const [category, setCategory] = useState("edited");
   const [selectedFile, setSelectedFile] = useState(null);
-
 
   const handleShootNameChange = (e) => {
     setShootName(e.target.value);
